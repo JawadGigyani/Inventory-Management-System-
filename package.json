@@ -1,0 +1,51 @@
+{
+  "name": "inventory-management-system",
+  "version": "1.0.0",
+  "description": "Offline Inventory Management System",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && electron .",
+    "postinstall": "electron-rebuild",
+    "dist": "npm run build && electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "exceljs": "^4.4.0",
+    "papaparse": "^5.4.1"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/papaparse": "^5.3.15",
+    "electron": "^28.3.3",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.0"
+  },
+  "build": {
+    "appId": "com.ims.inventory",
+    "productName": "Inventory Management System",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "src/renderer/**/*",
+      "node_modules/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
