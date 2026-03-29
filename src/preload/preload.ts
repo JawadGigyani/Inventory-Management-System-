@@ -59,4 +59,20 @@ contextBridge.exposeInMainWorld('inventoryAPI', {
   backupDatabase: () => ipcRenderer.invoke('backup-database'),
 
   restoreDatabase: () => ipcRenderer.invoke('restore-database'),
+
+  onMenuCommand: (callback: (command: string) => void) => {
+    const channels = [
+      'menu-import', 'menu-export', 'menu-backup', 'menu-restore',
+      'menu-view-dashboard', 'menu-view-products', 'menu-view-categories',
+      'menu-toggle-theme', 'menu-toggle-sidebar', 'menu-about',
+    ];
+    for (const ch of channels) {
+      ipcRenderer.on(ch, () => callback(ch));
+    }
+  },
+
+  winMinimize: () => ipcRenderer.invoke('win-minimize'),
+  winMaximize: () => ipcRenderer.invoke('win-maximize'),
+  winClose: () => ipcRenderer.invoke('win-close'),
+  winIsMaximized: () => ipcRenderer.invoke('win-is-maximized'),
 });

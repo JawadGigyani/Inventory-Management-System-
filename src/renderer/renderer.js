@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupSorting();
   setupViewToggle();
   setupHistoryDateFilter();
+  setupMenuCommands();
 
   await loadCategories();
   await loadDashboard();
@@ -1082,6 +1083,92 @@ function setupTopLevelButtons() {
       showToast('Restore failed', 'error');
     }
   });
+}
+
+// ─── Menu Commands (keyboard shortcuts from hidden native menu + custom titlebar) ──
+function setupMenuCommands() {
+  // Handle keyboard shortcut commands forwarded from the hidden native menu
+  if (api.onMenuCommand) {
+    api.onMenuCommand((cmd) => runMenuCommand(cmd));
+  }
+
+  // Custom titlebar dropdown menus
+  setupTitlebarMenus();
+
+  // Window controls
+  $('#tb-minimize').addEventListener('click', () => api.winMinimize());
+  $('#tb-maximize').addEventListener('click', () => api.winMaximize());
+  $('#tb-close').addEventListener('click', () => api.winClose());
+}
+
+function runMenuCommand(cmd) {
+  closeTitlebarMenus();
+  switch (cmd) {
+    case 'menu-import': $('#sidebar-import').click(); break;
+    case 'menu-export': $('#sidebar-export').click(); break;
+    case 'menu-backup': $('#sidebar-backup').click(); break;
+    case 'menu-restore': $('#sidebar-restore').click(); break;
+    case 'menu-view-dashboard': switchView('dashboard'); break;
+    case 'menu-view-products': switchView('products'); break;
+    case 'menu-view-categories': switchView('categories'); break;
+    case 'menu-toggle-theme': $('#theme-toggle').click(); break;
+    case 'menu-toggle-sidebar': $('#sidebar-toggle').click(); break;
+    case 'menu-about': showToast('IMS v1.0 — Inventory Management System', 'info'); break;
+    case 'win-close': api.winClose(); break;
+    case 'reload': location.reload(); break;
+    case 'fullscreen': document.documentElement.requestFullscreen?.(); break;
+    case 'edit-undo': document.execCommand('undo'); break;
+    case 'edit-redo': document.execCommand('redo'); break;
+    case 'edit-cut': document.execCommand('cut'); break;
+    case 'edit-copy': document.execCommand('copy'); break;
+    case 'edit-paste': document.execCommand('paste'); break;
+    case 'edit-selectall': document.execCommand('selectAll'); break;
+  }
+}
+
+let openMenu = null;
+
+function setupTitlebarMenus() {
+  const menus = $$('.tb-menu');
+
+  menus.forEach(menu => {
+    const btn = menu.querySelector('.tb-menu-btn');
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (menu.classList.contains('open')) {
+        closeTitlebarMenus();
+      } else {
+        closeTitlebarMenus();
+        menu.classList.add('open');
+        openMenu = menu;
+      }
+    });
+
+    btn.addEventListener('mouseenter', () => {
+      if (openMenu && openMenu !== menu) {
+        closeTitlebarMenus();
+        menu.classList.add('open');
+        openMenu = menu;
+      }
+    });
+  });
+
+  // Dropdown item clicks
+  $$('.tb-item[data-cmd]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      runMenuCommand(item.dataset.cmd);
+    });
+  });
+
+  // Close menus on outside click
+  document.addEventListener('click', () => closeTitlebarMenus());
+}
+
+function closeTitlebarMenus() {
+  $$('.tb-menu.open').forEach(m => m.classList.remove('open'));
+  openMenu = null;
 }
 
 // ─── View Refresh Helper ───────────────────────────────

@@ -8,6 +8,70 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Custom Title Bar -->
+  <header class="titlebar" id="titlebar">
+    <div class="titlebar-menus" id="titlebar-menus">
+      <div class="tb-menu" data-menu="file">
+        <button class="tb-menu-btn">File</button>
+        <div class="tb-dropdown">
+          <button class="tb-item" data-cmd="menu-import">Import Data<span class="tb-shortcut">Ctrl+I</span></button>
+          <button class="tb-item" data-cmd="menu-export">Export Data<span class="tb-shortcut">Ctrl+E</span></button>
+          <div class="tb-sep"></div>
+          <button class="tb-item" data-cmd="menu-backup">Backup Database</button>
+          <button class="tb-item" data-cmd="menu-restore">Restore Database</button>
+          <div class="tb-sep"></div>
+          <button class="tb-item" data-cmd="win-close">Exit</button>
+        </div>
+      </div>
+      <div class="tb-menu" data-menu="edit">
+        <button class="tb-menu-btn">Edit</button>
+        <div class="tb-dropdown">
+          <button class="tb-item" data-cmd="edit-undo">Undo<span class="tb-shortcut">Ctrl+Z</span></button>
+          <button class="tb-item" data-cmd="edit-redo">Redo<span class="tb-shortcut">Ctrl+Y</span></button>
+          <div class="tb-sep"></div>
+          <button class="tb-item" data-cmd="edit-cut">Cut<span class="tb-shortcut">Ctrl+X</span></button>
+          <button class="tb-item" data-cmd="edit-copy">Copy<span class="tb-shortcut">Ctrl+C</span></button>
+          <button class="tb-item" data-cmd="edit-paste">Paste<span class="tb-shortcut">Ctrl+V</span></button>
+          <button class="tb-item" data-cmd="edit-selectall">Select All<span class="tb-shortcut">Ctrl+A</span></button>
+        </div>
+      </div>
+      <div class="tb-menu" data-menu="view">
+        <button class="tb-menu-btn">View</button>
+        <div class="tb-dropdown">
+          <button class="tb-item" data-cmd="menu-view-dashboard">Dashboard<span class="tb-shortcut">Ctrl+1</span></button>
+          <button class="tb-item" data-cmd="menu-view-products">Products<span class="tb-shortcut">Ctrl+2</span></button>
+          <button class="tb-item" data-cmd="menu-view-categories">Categories<span class="tb-shortcut">Ctrl+3</span></button>
+          <div class="tb-sep"></div>
+          <button class="tb-item" data-cmd="menu-toggle-theme">Toggle Theme<span class="tb-shortcut">Ctrl+T</span></button>
+          <button class="tb-item" data-cmd="menu-toggle-sidebar">Toggle Sidebar<span class="tb-shortcut">Ctrl+B</span></button>
+          <div class="tb-sep"></div>
+          <button class="tb-item" data-cmd="reload">Reload<span class="tb-shortcut">Ctrl+R</span></button>
+          <button class="tb-item" data-cmd="fullscreen">Fullscreen<span class="tb-shortcut">F11</span></button>
+        </div>
+      </div>
+      <div class="tb-menu" data-menu="help">
+        <button class="tb-menu-btn">Help</button>
+        <div class="tb-dropdown">
+          <button class="tb-item" data-cmd="menu-about">About IMS</button>
+        </div>
+      </div>
+    </div>
+    <div class="titlebar-drag">
+      <span class="titlebar-title">Inventory Management System</span>
+    </div>
+    <div class="titlebar-controls">
+      <button class="tb-ctrl tb-minimize" id="tb-minimize" title="Minimize">
+        <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
+      </button>
+      <button class="tb-ctrl tb-maximize" id="tb-maximize" title="Maximize">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1"><rect x="0.5" y="0.5" width="9" height="9"/></svg>
+      </button>
+      <button class="tb-ctrl tb-close" id="tb-close" title="Close">
+        <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="1.2"><line x1="0" y1="0" x2="10" y2="10"/><line x1="10" y1="0" x2="0" y2="10"/></svg>
+      </button>
+    </div>
+  </header>
+
   <div class="app-layout">
 
     <!-- Sidebar -->

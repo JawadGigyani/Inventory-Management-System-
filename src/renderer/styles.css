@@ -136,8 +136,145 @@ html, body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* ── Custom Title Bar ───────────────────── */
+.titlebar {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  user-select: none;
+  z-index: 999;
+  transition: background 0.3s ease;
+}
+
+/* Menus sit outside the drag region so clicks work on Windows */
+.titlebar-menus {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 8px;
+  flex-shrink: 0;
+}
+
+.tb-menu {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.tb-menu-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-family: var(--font);
+  padding: 0 10px;
+  height: 100%;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
+}
+.tb-menu-btn:hover,
+.tb-menu.open .tb-menu-btn {
+  background: var(--sidebar-hover-bg);
+  color: var(--text);
+}
+
+.tb-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 210px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: 4px 0;
+  z-index: 1000;
+}
+.tb-menu.open .tb-dropdown { display: block; }
+
+.tb-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 14px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-family: var(--font);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s ease, color 0.1s ease;
+  gap: 20px;
+}
+.tb-item:hover {
+  background: var(--accent-glow);
+  color: var(--text);
+}
+
+.tb-shortcut {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.tb-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 3px 8px;
+}
+
+/* Drag region is the empty middle space -- only this is draggable */
+.titlebar-drag {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  -webkit-app-region: drag;
+  overflow: hidden;
+}
+
+.titlebar-title {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.titlebar-controls {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.tb-ctrl {
+  width: 46px;
+  height: 100%;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.tb-ctrl:hover { background: var(--sidebar-hover-bg); color: var(--text); }
+.tb-close:hover { background: #e81123; color: #fff; }
+
 /* ── Layout ─────────────────────────────── */
-.app-layout { display: flex; height: 100vh; }
+.app-layout { display: flex; height: calc(100vh - 33px); }
 
 /* ── Sidebar ────────────────────────────── */
 .sidebar {
