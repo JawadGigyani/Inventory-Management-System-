@@ -1113,7 +1113,7 @@ function runMenuCommand(cmd) {
     case 'menu-view-categories': switchView('categories'); break;
     case 'menu-toggle-theme': $('#theme-toggle').click(); break;
     case 'menu-toggle-sidebar': $('#sidebar-toggle').click(); break;
-    case 'menu-about': showToast('IMS v1.0 — Inventory Management System', 'info'); break;
+      case 'menu-about': openModal($('#about-modal')); break;
     case 'win-close': api.winClose(); break;
     case 'reload': location.reload(); break;
     case 'fullscreen': document.documentElement.requestFullscreen?.(); break;
